@@ -1,3 +1,3 @@
 # like-sheep.github.io
 
-using by https://github.com/AWEEKJ/kiko-now
+using theme by https://github.com/AWEEKJ/kiko-now
