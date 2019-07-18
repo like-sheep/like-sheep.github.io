@@ -6,7 +6,7 @@
 name: Like Sheep
 
 # Short bio or description (displayed in the header)
-description: 천천히 흘러가는 블로그
+description: 삽질 정리 블로그
 
 #
 # Flags below are optional
@@ -49,10 +49,9 @@ footer-links:
   tumblr: # https://<username>.tumblr.com
   twitter: 
   youtube: # channel/<your_long_string> or user/<user-name>
-  slideshare: https://www.slideshare.net/gyuhyeonNam
 
 # Text under the icons in footer
-footer-text: © 2017 Kiko Now
+footer-text: © 2019 like-sheep
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account

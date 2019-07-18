@@ -13,5 +13,5 @@ permalink: /about/
 
 ### Contact me
 
-연락이 필요하시면 이하의 메일로 보내주세요.
+연락이 필요하시면 이하의 메일로 보내주세요.  
 [ngh3053@gmail.com](mailto:ngh3053@gmail.com)
