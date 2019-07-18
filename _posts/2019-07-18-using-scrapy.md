@@ -17,23 +17,23 @@ scrapy는 파이썬으로 작성된 크롤링 프레임워크이다. BeautifulSo
 크롤링하는데 저게 다 필요할까 생각이 들었다. 이유가 있으니까 개발자들이 이렇게 무럭무럭 키웠겠지 생각하며 일단 어떻게 구성되어 있는지 알아보자. 크게 spider, middleware, pipeline, scheduler, downloader, 그리고 engine, 이렇게 총 6개 정도로 구성되는 것을 확인 할 수 있다. 사실 자주 사용하는건 spider나 pipeline 정도밖에 없다.  
 
 작동 흐름은 이렇게 된다.  
-1. engine이 spider들을 통해 초기 크롤링 위치를 전달 받는다.  
-2. engine이 scheduler에서 request 들을 관리하고, 다음 request를 요청한다. 
-3. scheduler는 engine에게 다음 request를 전달한다. 
+1번. engine이 spider들을 통해 초기 크롤링 위치를 전달 받는다.  
+2번. engine이 scheduler에서 request 들을 관리하고, 다음 request를 요청한다. 
+3번. scheduler는 engine에게 다음 request를 전달한다. 
 
-스케쥴 관리 부분이다. 빠르게 크롤링하기 위해 url들을 관리한다는 의미이다. 
+> 스케쥴 관리 부분이다. 빠르게 크롤링하기 위해 url들을 관리한다는 의미이다. 
+  
+4번. engine은 requeust를 downloader에게 전달한다.
+5번. downloader는 request를 요청하여 response를 받아오고 engine에게 전달한다. 
 
-4. engine은 requeust를 downloader에게 전달한다.
-5. downloader는 request를 요청하여 response를 받아오고 engine에게 전달한다. 
+> http 요청, 응답 부분이다. 웹사이트 데이터를 가져오는 역할이다. engine과 downloader 중간에 downloader middleware 가 있는데, 이는 그 사이에서 전달되는 request나 response 전처리하기 위해서 존재한다. 
+  
+6번. 의미있는 데이터를 추출하기 위해 다운받은 response를 spider에 전달한다. 
+7번. spider들은 필요한 부분(item)을 추출하여 engine에게 전달한다.
 
-http 요청, 응답 부분이다. 웹사이트 데이터를 가져오는 역할이다. engine과 downloader 중간에 downloader middleware 가 있는데, 이는 그 사이에서 전달되는 request나 response 전처리하기 위해서 존재한다. 
-
-6. 의미있는 데이터를 추출하기 위해 다운받은 response를 spider에 전달한다. 
-7. spider들은 필요한 부분(item)을 추출하여 engine에게 전달한다.
-
-일반적으로 크롤링하면 생각하는 부분이다. 웹사이트에서 태그들을 해집고 다니며 의미있는 데이터를 추출하는 부분이다. 마찬가지로 engine과 spider 사이에 spider middleware가 있는데 이 또한 response나 item을 전처리하기 위해 존재한다. 
-
-8. engine은 item을 pipeline에게 전달하고 scheduler에게 다음 request 를 요청한다. 
+> 일반적으로 크롤링하면 생각하는 부분이다. 웹사이트에서 태그들을 해집고 다니며 의미있는 데이터를 추출하는 부분이다. 마찬가지로 engine과 spider 사이에 spider middleware가 있는데 이 또한 response나 item을 전처리하기 위해 존재한다. 
+  
+8번. engine은 item을 pipeline에게 전달하고 scheduler에게 다음 request 를 요청한다. 
 
 그리고 이 과정을 다음 request가 없을 때까지(크롤링 할 곳이 없을 때까지) 계속 반복한다. 결국 보면 빠른 크롤링을 위해 스케쥴 관리하고, 웹사이트 가져오고, 데이터 추출하고, 아이템 가공하는게 전부이다.  
 
